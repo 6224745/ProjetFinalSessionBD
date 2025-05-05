@@ -1,0 +1,11 @@
+3) Mettre à jour pour la version prerelease qui fonctionne avec .Net 8.0
+
+dotnet tool update evolve.tool -g --prerelease
+
+4) Migration
+
+evolve migrate sqlserver -c "Data Source=.;Initial Catalog=BD_Gymnastique;Integrated Security=True;Persist Security Info=False;Pooling=False;MultipleActiveResultSets=False;Encrypt=False;TrustServerCertificate=False" -s Appateil -s Performance --target-version 1.2
+
+5) Scaffold
+
+dotnet ef dbcontext scaffold Name=BD_Gymnastique Microsoft.EntityFrameworkCore.SqlServer -o Models --context BdGymnastiqueContext --context-dir Data --data-annotations --force
