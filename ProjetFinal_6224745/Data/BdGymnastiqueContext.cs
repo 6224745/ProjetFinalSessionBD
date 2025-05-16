@@ -28,6 +28,8 @@ public partial class BdGymnastiqueContext : DbContext
 
     public virtual DbSet<Performance> Performances { get; set; }
 
+    public virtual DbSet<Utilisateur> Utilisateurs { get; set; }
+
     public virtual DbSet<VwDetailAgre> VwDetailAgres { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -79,6 +81,11 @@ public partial class BdGymnastiqueContext : DbContext
             entity.HasOne(d => d.Mouvement).WithMany(p => p.Performances)
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK_MouvementID_MouvementID");
+        });
+
+        modelBuilder.Entity<Utilisateur>(entity =>
+        {
+            entity.HasKey(e => e.UtilisateurId).HasName("PK_Utilisateur_UtilisateurID");
         });
 
         modelBuilder.Entity<VwDetailAgre>(entity =>

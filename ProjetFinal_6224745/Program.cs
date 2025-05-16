@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using ProjetFinal_6224745.Data;
 
@@ -9,6 +10,12 @@ builder.Services.AddRazorPages();
 builder.Services.AddDbContext<BdGymnastiqueContext>(
     option => option.UseSqlServer(builder.Configuration.GetConnectionString("BD_Gymnastique")));
 
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
+{
+    options.LoginPath = "/Utilisateurs/Connexion";
+    options.LogoutPath = "/Utilisateurs/Deconnexion";
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -19,6 +26,8 @@ if (!app.Environment.IsDevelopment())
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

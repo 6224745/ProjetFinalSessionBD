@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
+using System.Security.Principal;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -22,6 +24,17 @@ namespace ProjetFinal_6224745.Controllers
         // GET: Agres
         public async Task<IActionResult> Index()
         {
+            ViewData["utilisateur"] = "Visisteur";
+            IIdentity? identite = HttpContext.User.Identity;
+            if (identite != null && identite.IsAuthenticated)
+            {
+                string pseudo = HttpContext.User.FindFirstValue(ClaimTypes.Name);
+                Utilisateur? utilisateur = await _context.Utilisateurs.FirstOrDefaultAsync(x => x.Pseudonyme == pseudo);
+                if (utilisateur != null)
+                {
+                    ViewData["utilisateur"] = utilisateur.Pseudonyme;
+                }
+            }
             return View(await _context.Agres.ToListAsync());
         }
 

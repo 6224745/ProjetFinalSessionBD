@@ -1,0 +1,35 @@
+﻿@model ProjetFinal_6224745.ViewModels.ConnexionViewModel
+<a asp-action="Index" asp-controller="Agres">Retour à l'accueuil</a>
+
+<h2>Connexion</h2>
+
+<form asp-action="Connexion">
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <div class="form-group">
+        <label asp-for="Pseudonyme" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="Pseudonyme" class="form-control" />
+            <span asp-validation-for="Pseudonyme" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="MotDePasse" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="MotDePasse" class="form-control" />
+            <span asp-validation-for="MotDePasse" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <button type="submit" class="btn btn-default">Se connecter</button>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}
