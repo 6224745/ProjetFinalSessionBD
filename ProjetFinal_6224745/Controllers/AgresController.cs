@@ -33,14 +33,16 @@ namespace ProjetFinal_6224745.Controllers
                 return NotFound();
             }
 
-            var agre = await _context.Agres
-                .FirstOrDefaultAsync(m => m.AgreId == id);
-            if (agre == null)
+            var agreDetails = await _context.VwDetailAgres
+                .Where(m => m.AgreId == id)
+                .ToListAsync();
+
+            if (agreDetails == null || !agreDetails.Any())
             {
                 return NotFound();
             }
 
-            return View(agre);
+            return View(agreDetails.ToList());
         }
 
         // GET: Agres/Create
