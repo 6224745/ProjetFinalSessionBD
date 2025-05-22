@@ -32,7 +32,7 @@ public partial class BdGymnastiqueContext : DbContext
 
     public virtual DbSet<VwDetailAgre> VwDetailAgres { get; set; }
 
-    public DbSet<DetailsMouvements> DetailsMouvements { get; set; }
+    public virtual DbSet<MouvementFiltreResult> MouvementFiltreResults { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder.UseSqlServer("Name=BD_Gymnastique");
@@ -46,7 +46,7 @@ public partial class BdGymnastiqueContext : DbContext
 
         modelBuilder.Entity<Changelog>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__changelo__3213E83FEDE102AE");
+            entity.HasKey(e => e.Id).HasName("PK__changelo__3213E83FC2BF416E");
 
             entity.Property(e => e.InstalledOn).HasDefaultValueSql("(getdate())");
         });
@@ -94,9 +94,12 @@ public partial class BdGymnastiqueContext : DbContext
         {
             entity.ToView("vw_DetailAgres", "Appareil");
         });
-        modelBuilder.Entity<DetailsMouvements>()
-        .HasNoKey()
-        .ToView(null);
+
+        modelBuilder.Entity<MouvementFiltreResult>(entity =>
+        {
+            entity.HasNoKey();
+            entity.Property(e => e.Valeur).HasColumnType("decimal(18,2)");
+        });
 
         OnModelCreatingPartial(modelBuilder);
     }

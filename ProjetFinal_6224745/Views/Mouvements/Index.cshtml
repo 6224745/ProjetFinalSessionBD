@@ -10,23 +10,25 @@
 <p>
     <a asp-controller="Agres" asp-action="Index">Retour à l'accueuil</a>
 </p>
-<form asp-controller="Mouvements" asp-action="FiltrageMouvements" method="get">
-    <label for="agre">Nom de l'agrès :</label>
-    <select name="agre" id="agresID" required>
-        <option value="">-- Sélectionnez --</option>
-        <option value="sol">Sol</option>
-        <option value="cheval d’arçons">Cheval d’arçons</option>
-        <option value="anneaux">Anneaux</option>
-        <option value="saut de cheval">Saut de cheval</option>
-        <option value="barres_paralleles">Barres Parallèles</option>
-        <option value="barre_fixe">Barre fixe</option>
-    </select>
+<div class="mb-3">
+    <form asp-action="FiltrageMouvements" method="get">
+        <label for="agre">Nom de l'agrès :</label>
+        <select name="agre">
+            <option value="">-- Sélectionnez --</option>
+            <option value="Sol">Sol</option>
+            <option value="Cheval d’arçons">Cheval d’arçons</option>
+            <option value="Anneaux">Anneaux</option>
+            <option value="Saut de cheval">Saut de cheval</option>
+            <option value="Barres Parallèles">Barres Parallèles</option>
+            <option value="Barre fixe">Barre fixe</option>
+        </select>
 
-    <label for="difficulte">Difficulté :</label>
-    <input type="text" id="difficulte" name="difficulte" placeholder="Ex : A, B, C, etc." required>
+        <label for="difficulte">Difficulté :</label>
+        <input type="text" name="difficulte" placeholder="Ex : A, B, C, etc.">
 
-    <input type="submit" value="Ajouter">
-</form>
+        <input type="submit" value="Filtrer">
+    </form>
+</div>
 <table class="table">
     <thead>
         <tr>

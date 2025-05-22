@@ -30,18 +30,33 @@ namespace ProjetFinal_6224745.Controllers
         // GET: Mouvements Filtré
         public async Task<IActionResult> FiltrageMouvements(string agre, string difficulte)
         {
-            Agre? NomAgre = await _context.Agres.Where(x => x.Nom.ToLower() == agre.ToLower()).FirstOrDefaultAsync();
-            if (NomAgre == null)
+            var isSaut = agre == "Saut de cheval";
+
+            object difficulteParam;
+
+            if (isSaut)
             {
-                return RedirectToAction("Index", "Mouvements");
+                difficulteParam = "Tous"; // Valeur spéciale pour le saut
             }
-            var param1 = new SqlParameter { ParameterName = "@Agres", Value = agre };
-            var param2 = new SqlParameter { ParameterName = "@Difficulte", Value = difficulte };
+            else
+            {
+                // 2. Gérer correctement les valeurs null avec DBNull
+                difficulteParam = !string.IsNullOrEmpty(difficulte) ? (object)difficulte : DBNull.Value;
+            }
 
-            List<DetailsMouvements> mouvements = await _context.DetailsMouvements.FromSqlRaw("EXEC Appareil.usp_FiltrageMouvements @Agres, @Difficulte", param1, param2).ToListAsync();
+            // 3. Créer les paramètres SQL correctement typés
+            var parameters = new[]
+            {
+                new SqlParameter("@Agres", string.IsNullOrEmpty(agre) ? DBNull.Value : (object)agre),
+                new SqlParameter("@Difficulte", difficulteParam)
+            };
 
+            var result = await _context.MouvementFiltreResults
+                .FromSqlRaw("EXEC Appareil.usp_FiltrageMouvements @Agres, @Difficulte", parameters)
+                .AsNoTracking()
+                .ToListAsync();
 
-            return View(mouvements);
+             return View(result);
         }
 
         // GET: Mouvements/Details/5

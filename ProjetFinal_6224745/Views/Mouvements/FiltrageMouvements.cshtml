@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ProjetFinal_6224745.Models.DetailsMouvements>
+﻿@model IEnumerable<ProjetFinal_6224745.Models.MouvementFiltreResult>
 
 @{
     ViewData["Title"] = "Index";
@@ -11,7 +11,7 @@
     <a asp-controller="Agres" asp-action="Index">Retour à l'accueuil</a>
 </p>
 <div class="mb-3">
-<form asp-controller="Mouvements" asp-action="FiltrageMouvements" method="get">
+    <form asp-action="FiltrageMouvements" method="get">
     <label for="agre">Nom de l'agrès :</label>
     <select name="agre">
         <option value="">-- Sélectionnez --</option>
@@ -24,9 +24,9 @@
     </select>
 
     <label for="difficulte">Difficulté :</label>
-    <input type="text" name="difficulte" placeholder="Ex : A, B, C, etc.">
+    <input type="text" name="difficulte" placeholder="Ex : Tous, A, B, C, etc.">
 
-        <input type="submit" value="Filtrer">
+    <input type="submit" value="Filtrer">
 </form>
 </div>
 <a asp-controller="Mouvements" asp-action="Index">Supprimer les filtres</a>
