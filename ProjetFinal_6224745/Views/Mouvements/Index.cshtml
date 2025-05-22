@@ -5,11 +5,28 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<h1>List des mouvements</h1>
 
 <p>
     <a asp-controller="Agres" asp-action="Index">Retour à l'accueuil</a>
 </p>
+<form asp-controller="Mouvements" asp-action="FiltrageMouvements" method="get">
+    <label for="agre">Nom de l'agrès :</label>
+    <select name="agre" id="agresID" required>
+        <option value="">-- Sélectionnez --</option>
+        <option value="sol">Sol</option>
+        <option value="cheval d’arçons">Cheval d’arçons</option>
+        <option value="anneaux">Anneaux</option>
+        <option value="saut de cheval">Saut de cheval</option>
+        <option value="barres_paralleles">Barres Parallèles</option>
+        <option value="barre_fixe">Barre fixe</option>
+    </select>
+
+    <label for="difficulte">Difficulté :</label>
+    <input type="text" id="difficulte" name="difficulte" placeholder="Ex : A, B, C, etc." required>
+
+    <input type="submit" value="Ajouter">
+</form>
 <table class="table">
     <thead>
         <tr>

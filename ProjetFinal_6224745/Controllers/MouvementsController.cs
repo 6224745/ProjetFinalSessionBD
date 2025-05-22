@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using ProjetFinal_6224745.Data;
 using ProjetFinal_6224745.Models;
@@ -24,6 +25,23 @@ namespace ProjetFinal_6224745.Controllers
         {
             var bdGymnastiqueContext = _context.Mouvements.Include(m => m.Agre);
             return View(await bdGymnastiqueContext.ToListAsync());
+        }
+
+        // GET: Mouvements Filtré
+        public async Task<IActionResult> FiltrageMouvements(string agre, string difficulte)
+        {
+            Agre? NomAgre = await _context.Agres.Where(x => x.Nom.ToLower() == agre.ToLower()).FirstOrDefaultAsync();
+            if (NomAgre == null)
+            {
+                return RedirectToAction("Index", "Mouvements");
+            }
+            var param1 = new SqlParameter { ParameterName = "@Agres", Value = agre };
+            var param2 = new SqlParameter { ParameterName = "@Difficulte", Value = difficulte };
+
+            List<DetailsMouvements> mouvements = await _context.DetailsMouvements.FromSqlRaw("EXEC Appareil.usp_FiltrageMouvements @Agres, @Difficulte", param1, param2).ToListAsync();
+
+
+            return View(mouvements);
         }
 
         // GET: Mouvements/Details/5

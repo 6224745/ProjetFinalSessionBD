@@ -1,0 +1,54 @@
+﻿@model IEnumerable<ProjetFinal_6224745.Models.DetailsMouvements>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>List des mouvements filtrés</h1>
+
+<p>
+    <a asp-controller="Agres" asp-action="Index">Retour à l'accueuil</a>
+</p>
+<div class="mb-3">
+<form asp-controller="Mouvements" asp-action="FiltrageMouvements" method="get">
+    <label for="agre">Nom de l'agrès :</label>
+    <select name="agre">
+        <option value="">-- Sélectionnez --</option>
+        <option value="Sol">Sol</option>
+        <option value="Cheval d’arçons">Cheval d’arçons</option>
+        <option value="Anneaux">Anneaux</option>
+        <option value="Saut de cheval">Saut de cheval</option>
+        <option value="Barres Parallèles">Barres Parallèles</option>
+        <option value="Barre fixe">Barre fixe</option>
+    </select>
+
+    <label for="difficulte">Difficulté :</label>
+    <input type="text" name="difficulte" placeholder="Ex : A, B, C, etc.">
+
+        <input type="submit" value="Filtrer">
+</form>
+</div>
+<a asp-controller="Mouvements" asp-action="Index">Supprimer les filtres</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.NomMouvement)</th>
+            <th>@Html.DisplayNameFor(model => model.Difficulte)</th>
+            <th>@Html.DisplayNameFor(model => model.Valeur)</th>
+            <th>@Html.DisplayNameFor(model => model.Description)</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.NomMouvement)</td>
+                <td>@Html.DisplayFor(modelItem => item.Difficulte)</td>
+                <td>@Html.DisplayFor(modelItem => item.Valeur)</td>
+                <td>@Html.DisplayFor(modelItem => item.Description)</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
