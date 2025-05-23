@@ -5,13 +5,16 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<div class="row">
+    <p class="col-auto"><a asp-controller="Utilisateurs" asp-action="Inscription">Inscription</a></p>
+    <p class="col-auto"><a asp-controller="Utilisateurs" asp-action="Connexion">Connexion</a></p>
+    <p class="col-auto"><a asp-controller="Utilisateurs" asp-action="Deconnexion">Deconnexion</a></p>
+</div>
+
 <p>Bounjour @ViewData["utilisateur"]</p></>
 
 <h1>Agrès</h1>
 <p><a asp-controller="Mouvements" asp-action="Index">Liste de mouvements</a></p>
-<p><a asp-controller="Utilisateurs" asp-action="Inscription">Inscription</a></p>
-<p><a asp-controller="Utilisateurs" asp-action="Connexion">Connexion</a></p>
-<p><a asp-controller="Utilisateurs" asp-action="Deconnexion">Deconnexion</a></p>
 
 <table class="table">
     <thead>
