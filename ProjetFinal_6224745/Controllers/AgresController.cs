@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ProjetFinal_6224745.Data;
 using ProjetFinal_6224745.Models;
+using ProjetFinal_6224745.ViewModels;
 
 namespace ProjetFinal_6224745.Controllers
 {
@@ -38,7 +39,7 @@ namespace ProjetFinal_6224745.Controllers
             return View(await _context.Agres.ToListAsync());
         }
 
-        // GET: Agres/Details/5
+        // GET: Agres/Details/6
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -52,10 +53,24 @@ namespace ProjetFinal_6224745.Controllers
 
             if (agreDetails == null || !agreDetails.Any())
             {
-                return NotFound();
+                return NotFound("Il n'y a pas de details pour cet appareil");
             }
 
-            return View(agreDetails.ToList());
+            var AgreSlected = await _context.Agres.Where(x => x.AgreId == id).FirstAsync();
+            
+
+            var afficheImage = await _context.Affiches
+                .Where(x => x.AgreId == id)
+                .Select(x => x.AfficheContent == null ? null : $"data:image/png;base64,{Convert.ToBase64String(x.AfficheContent)}")
+                .FirstOrDefaultAsync();
+            AgresAfficheViewModel vm = new AgresAfficheViewModel()
+            {
+                DetailAgre = agreDetails,
+                AfficheContent = afficheImage,
+                Agres = AgreSlected
+            };
+
+            return View(vm);
         }
 
         // GET: Agres/Create

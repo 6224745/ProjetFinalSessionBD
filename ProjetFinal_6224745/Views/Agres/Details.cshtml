@@ -1,12 +1,19 @@
-﻿@model List<ProjetFinal_6224745.Models.VwDetailAgre>
+﻿@model ProjetFinal_6224745.ViewModels.AgresAfficheViewModel
 
 @{
     ViewData["Title"] = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Détails de l'appareil : @Model.First().Nom</h1>
-<p><a asp-controller="Mouvements" asp-action="Index">Liste de mouvements</a></p>
+<div class="row">
+    <div class="col-auto">
+        <h1>Détails de l'appareil : @Model.Agres.Nom</h1>
+        <p><a asp-controller="Mouvements" asp-action="Index">Liste de mouvements</a></p>
+    </div>
+    <div class="col-auto">
+        <img src="@(Model.AfficheContent)" alt="@(Model.Agres.Nom)" />
+    </div>
+</div>
 
 <table class="table">
     <thead>
@@ -16,7 +23,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (var item in Model.DetailAgre)
         {
             <tr>
                 <td>@item.Difficulte</td>

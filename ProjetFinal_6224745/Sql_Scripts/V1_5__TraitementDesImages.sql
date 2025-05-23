@@ -6,6 +6,10 @@ CREATE TABLE Appareil.Affiche(
 )
 GO
 
+ALTER TABLE Appareil.Affiche ADD CONSTRAINT FK_Affiche_Agre FOREIGN KEY (AgreID) 
+REFERENCES Appareil.Agre(AgreID);
+GO
+
 ALTER TABLE Appareil.Affiche ADD CONSTRAINT UC_Appareil_Identifiant UNIQUE(Identifiant)
 GO
 

@@ -16,6 +16,8 @@ public partial class BdGymnastiqueContext : DbContext
     {
     }
 
+    public virtual DbSet<Affiche> Affiches { get; set; }
+
     public virtual DbSet<Agre> Agres { get; set; }
 
     public virtual DbSet<Changelog> Changelogs { get; set; }
@@ -39,6 +41,13 @@ public partial class BdGymnastiqueContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Affiche>(entity =>
+        {
+            entity.HasKey(e => e.AfficheId).HasName("PK_Appareil_AfficheID");
+
+            entity.Property(e => e.Identifiant).HasDefaultValueSql("(newid())");
+        });
+
         modelBuilder.Entity<Agre>(entity =>
         {
             entity.HasKey(e => e.AgreId).HasName("PK_Agre_AgreID");
@@ -46,7 +55,7 @@ public partial class BdGymnastiqueContext : DbContext
 
         modelBuilder.Entity<Changelog>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__changelo__3213E83FC2BF416E");
+            entity.HasKey(e => e.Id).HasName("PK__changelo__3213E83F2B014CC7");
 
             entity.Property(e => e.InstalledOn).HasDefaultValueSql("(getdate())");
         });

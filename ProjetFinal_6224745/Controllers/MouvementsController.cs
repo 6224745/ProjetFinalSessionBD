@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Data.SqlClient;
@@ -26,7 +27,7 @@ namespace ProjetFinal_6224745.Controllers
             var bdGymnastiqueContext = _context.Mouvements.Include(m => m.Agre);
             return View(await bdGymnastiqueContext.ToListAsync());
         }
-
+        [Authorize]
         // GET: Mouvements Filtré
         public async Task<IActionResult> FiltrageMouvements(string agre, string difficulte)
         {
